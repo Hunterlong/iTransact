@@ -17,12 +17,13 @@ var ITargetGateway string = "93056"
 var EndPoint string = "https://secure.paymentclearing.com/cgi-bin/rc/xmltrans2.cgi"
 var TestMode bool = true
 
-
-func SetAPIInfo(user string, pass string, gateway string, testMode string){
+func SetAPIInfo(user string, pass string, gateway string, testMode string) {
 	ITransactUsername = user
 	ITransactAPIPass = pass
 	ITargetGateway = gateway
-	if (testMode=="live") { TestMode = false }
+	if testMode == "live" {
+		TestMode = false
+	}
 }
 
 func SendRequest(input interface{}) (iTransactResponse, interface{}) {

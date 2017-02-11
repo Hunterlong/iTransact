@@ -61,7 +61,7 @@ type APICredentials struct {
 
 type AuthTransaction struct {
 	CustomerData CustomerData `xml:"CustomerData"`
-	OrderItems   *Items        `xml:"OrderItems,omitempty"`
+	OrderItems   *Items       `xml:"OrderItems,omitempty"`
 	Total        string       `xml:"Total,omitempty"`
 	Description  string       `xml:"Description,omitempty"`
 	AccountInfo  CardAccount  `xml:"AccountInfo"`

@@ -1,8 +1,8 @@
 package iTransact
 
 import (
-	"testing"
 	"os"
+	"testing"
 )
 
 var myAddress = Address{
@@ -21,7 +21,7 @@ func TestSetAPIInfo(t *testing.T) {
 	iTransactUsername := os.Getenv("ITRANSACT_USER")
 	iTransactAPIPass := os.Getenv("ITRANSACT_APIPASS")
 	iTargetGateway := os.Getenv("ITRANSACT_GATEWAY")
-	SetAPIInfo(iTransactUsername,iTransactAPIPass,iTargetGateway, "test")
+	SetAPIInfo(iTransactUsername, iTransactAPIPass, iTargetGateway, "test")
 	t.Log("iTransact API Keys have been set! \n")
 }
 

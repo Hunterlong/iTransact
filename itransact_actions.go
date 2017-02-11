@@ -38,4 +38,3 @@ func (resp iTransactResponse) AuthAmount() string {
 	}
 	return "error"
 }
-
