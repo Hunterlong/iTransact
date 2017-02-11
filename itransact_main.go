@@ -6,15 +6,23 @@ import (
 	"crypto/sha1"
 	"encoding/base64"
 	"encoding/xml"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
-var ITransactUsername string = "you_guys_-_test_accou_TD4yx4f6"
-var ITransactAPIPass string = "NzS2dc73Yp96xe4rdjjp"
-var ITargetGateway string = "93056"
+// your iTransact Username
+var ITransactUsername string
+
+// your iTransact API Password found in Account Settings
+var ITransactAPIPass string
+
+// iTransact Gateway ID number (5 digits)
+var ITargetGateway string
+
+// Endpoint for the iTransact Processing API
 var EndPoint string = "https://secure.paymentclearing.com/cgi-bin/rc/xmltrans2.cgi"
+
+// Test mode true or false
 var TestMode bool = true
 
 func SetAPIInfo(user string, pass string, gateway string, testMode string) {
@@ -47,11 +55,7 @@ func SendRequest(input interface{}) (iTransactResponse, interface{}) {
 	if err != nil {
 		panic(err)
 	}
-
 	compiledMarshal := "<?xml version=\"1.0\"?><GatewayInterface>" + string(marshalCreds) + message + "</GatewayInterface>"
-
-	fmt.Println(compiledMarshal)
-
 	req, err := http.NewRequest("POST", EndPoint, bytes.NewBuffer([]byte(compiledMarshal)))
 	req.Header.Set("Content-Type", "text/xml")
 	errors := false
@@ -62,9 +66,6 @@ func SendRequest(input interface{}) (iTransactResponse, interface{}) {
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
-	//newBody := bytes.Replace(body, []byte("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"), []byte(""), 1)
-	corrBody := string(body)
-	fmt.Println(corrBody)
 	var dat iTransactResponse
 	err = xml.Unmarshal(body, &dat.GatewayInterface)
 	if err != nil {
