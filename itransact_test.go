@@ -29,7 +29,9 @@ func TestAuthTransaction(t *testing.T) {
 
 	t.Log("Creating a new transaction with a Total and Description with Credit Card\n")
 
-	tranz := &AuthTransaction{
+	newTransaction := &AuthTransaction{
+		Total:       "25.98",
+		Description: "Order #2384 - Docker Jacket",
 		CustomerData: CustomerData{
 			Email:           "info@socialeck.com",
 			CustId:          "83842",
@@ -42,20 +44,18 @@ func TestAuthTransaction(t *testing.T) {
 			ExpirationYear:  "2022",
 			CVVNumber:       "394",
 		}},
-		Total:       "25.98",
-		Description: "Order #2384 - Docker Jacket",
 	}
 
-	newTransaction, _ := SendRequest(tranz)
+	response := newTransaction.Charge()
 
-	if newTransaction.Approved() {
+	if response.Approved() {
 		t.Log("Transaction Approved")
-		t.Log("Transaction ID: ", newTransaction.TransactionID())
-		t.Log("Transaction Amount: ", newTransaction.AuthAmount())
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.AuthAmount())
 	} else {
 
-		if newTransaction.Failed() {
-			t.Log(newTransaction.ErrorMessage())
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
 		}
 
 		t.Log("Transaction Declined")
@@ -76,7 +76,7 @@ func TestItemsAuthTransaction(t *testing.T) {
 		},
 	}
 
-	tranz := &AuthTransaction{
+	newTransaction := &AuthTransaction{
 		CustomerData: CustomerData{
 			Email:           "info@socialeck.com",
 			CustId:          "83842",
@@ -94,16 +94,17 @@ func TestItemsAuthTransaction(t *testing.T) {
 		//Description: "Order #2384 - Docker Jacket",
 	}
 
-	newTransaction, _ := SendRequest(tranz)
 
-	if newTransaction.Approved() {
+	response := newTransaction.Charge()
+
+	if response.Approved() {
 		t.Log("Transaction Approved")
-		t.Log("Transaction ID: ", newTransaction.TransactionID())
-		t.Log("Transaction Amount: ", newTransaction.AuthAmount())
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.AuthAmount())
 	} else {
 
-		if newTransaction.Failed() {
-			t.Log(newTransaction.ErrorMessage())
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
 		}
 
 		t.Log("Transaction Declined")

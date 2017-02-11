@@ -25,6 +25,8 @@ var EndPoint string = "https://secure.paymentclearing.com/cgi-bin/rc/xmltrans2.c
 // Test mode true or false
 var TestMode bool = true
 
+
+
 func SetAPIInfo(user string, pass string, gateway string, testMode string) {
 	ITransactUsername = user
 	ITransactAPIPass = pass
@@ -33,6 +35,14 @@ func SetAPIInfo(user string, pass string, gateway string, testMode string) {
 		TestMode = false
 	}
 }
+
+
+
+func (transx AuthTransaction) Charge() iTransactResponse {
+	newTransaction, _ := SendRequest(transx)
+	return newTransaction
+}
+
 
 func SendRequest(input interface{}) (iTransactResponse, interface{}) {
 	marshalAction, err := xml.Marshal(input)
