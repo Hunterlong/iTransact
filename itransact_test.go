@@ -51,7 +51,7 @@ func TestAuthTransaction(t *testing.T) {
 	if response.Approved() {
 		t.Log("Transaction Approved")
 		t.Log("Transaction ID: ", response.TransactionID())
-		t.Log("Transaction Amount: ", response.AuthAmount())
+		t.Log("Transaction Amount: ", response.Total())
 	} else {
 
 		if response.Failed() {
@@ -99,7 +99,7 @@ func TestItemsAuthTransaction(t *testing.T) {
 	if response.Approved() {
 		t.Log("Transaction Approved")
 		t.Log("Transaction ID: ", response.TransactionID())
-		t.Log("Transaction Amount: ", response.AuthAmount())
+		t.Log("Transaction Amount: ", response.Total())
 	} else {
 
 		if response.Failed() {
@@ -116,5 +116,74 @@ func TestCloseBatch(t *testing.T) {
 	batch := RunBatchClose()
 
 	t.Log("Closed", len(batch.GatewayInterface.BatchCloseResponse.BatchList.Batch), "Transactions")
+
+}
+
+
+
+func TestCreditTransaction(t *testing.T) {
+
+	t.Log("Refunding a transaction\n")
+
+	refundTransaction := &CreditTransaction{
+		Total:       "25.98",
+		CustomerData: CustomerData{
+			Email:           "info@socialeck.com",
+			CustId:          "83842",
+			BillingAddress:  myAddress,
+			ShippingAddress: myAddress,
+		},
+		AccountInfo: CardAccount{CreditCard{
+			AccountNumber:   "5454545454545454",
+			ExpirationMonth: "05",
+			ExpirationYear:  "2022",
+			CVVNumber:       "394",
+		}},
+	}
+
+	response := refundTransaction.Credit()
+
+	if response.Approved() {
+		t.Log("Transaction Approved")
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.Total())
+	} else {
+
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
+		}
+
+		t.Log("Transaction Declined")
+		t.Fail()
+	}
+
+}
+
+
+func TestPostAuthTransaction(t *testing.T) {
+
+
+	newTransaction := PostAuthTransaction{
+		OperationXID: "383838383",
+		//Total: "25.98",
+	}
+
+	response := newTransaction.Charge()
+
+	if response.Approved() {
+		t.Log("Transaction Approved")
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.Total())
+	} else {
+
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
+		}
+
+		t.Log("Transaction Declined")
+		t.Fail()
+	}
+
+
 
 }

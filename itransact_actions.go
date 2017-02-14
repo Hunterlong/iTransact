@@ -2,6 +2,24 @@ package iTransact
 
 import "strings"
 
+
+func (transx PostAuthTransaction) Charge() iTransactResponse {
+	newTransaction, _ := SendTransactionRequest(transx)
+	return newTransaction
+}
+
+func (transx AuthTransaction) Charge() iTransactResponse {
+	newTransaction, _ := SendTransactionRequest(transx)
+	return newTransaction
+}
+
+
+func (transx CreditTransaction) Credit() iTransactResponse {
+	newTransaction, _ := SendTransactionRequest(transx)
+	return newTransaction
+}
+
+
 func (resp iTransactResponse) Approved() bool {
 	if (strings.ToLower(resp.GatewayInterface.TransactionResponse.TransactionResult.Status)) == "ok" {
 		return true
@@ -32,9 +50,9 @@ func (resp iTransactResponse) TransactionID() string {
 	return "error"
 }
 
-func (resp iTransactResponse) AuthAmount() string {
+func (resp iTransactResponse) Total() string {
 	if !resp.Failed() {
-		return resp.GatewayInterface.TransactionResponse.TransactionResult.AuthAmount
+		return resp.GatewayInterface.TransactionResponse.TransactionResult.Total
 	}
 	return "error"
 }

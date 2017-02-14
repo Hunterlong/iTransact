@@ -14,9 +14,9 @@ go get hunterlong/iTransact
 
 :white_check_mark: BatchClose
 
-:white_medium_square: CreditTransaction
+:white_check_mark: CreditTransaction
 
-:white_medium_square: PostAuthTransaction
+:white_check_mark: PostAuthTransaction
 
 :white_medium_square: TranCredTransaction
 

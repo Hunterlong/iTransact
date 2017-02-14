@@ -8,6 +8,7 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"net/http"
+	"fmt"
 )
 
 // your iTransact Username
@@ -32,11 +33,6 @@ func SetAPIInfo(user string, pass string, gateway string, testMode string) {
 	if testMode == "live" {
 		TestMode = false
 	}
-}
-
-func (transx AuthTransaction) Charge() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
 }
 
 func RunBatchClose() RunBatchCloseResponse {
@@ -88,7 +84,7 @@ func SendToiTransact(input interface{}) []byte {
 		panic(err)
 	}
 	compiledMarshal := "<?xml version=\"1.0\"?><GatewayInterface>" + string(marshalCreds) + message + "</GatewayInterface>"
-	//fmt.Println(compiledMarshal)
+	fmt.Println(compiledMarshal)
 	req, err := http.NewRequest("POST", EndPoint, bytes.NewBuffer([]byte(compiledMarshal)))
 	req.Header.Set("Content-Type", "text/xml")
 	client := &http.Client{}
@@ -98,5 +94,6 @@ func SendToiTransact(input interface{}) []byte {
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(body))
 	return body
 }

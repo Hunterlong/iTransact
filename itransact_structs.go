@@ -74,6 +74,18 @@ type RunBatchCloseResponse struct {
 	} `json:"GatewayInterface"`
 }
 
+
+type CreditTransaction struct {
+	Total string `xml:"Total"`
+	CustomerData CustomerData `xml:"CustomerData"`
+	AccountInfo  CardAccount  `xml:"AccountInfo"`
+}
+
+type PostAuthTransaction struct {
+	OperationXID string `xml:"OperationXID"`
+	Total string `xml:"Total,omitempty"`
+}
+
 type BatchClose struct {
 	TransactionControl TransactionControl `xml:"TransactionControl"`
 }
