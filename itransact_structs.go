@@ -103,6 +103,14 @@ type TranRetryTransaction struct {
 	Description string `xml:"Description,omitempty"`
 }
 
+type VoidTransaction struct {
+	OperationXID string `xml:"OperationXID"`
+}
+
+type TranRefundTransaction struct {
+	OperationXID string `xml:"OperationXID"`
+}
+
 type BatchClose struct {
 	TransactionControl TransactionControl `xml:"TransactionControl"`
 }

@@ -266,3 +266,53 @@ func TestTranRetryTransaction(t *testing.T) {
 	}
 
 }
+
+
+func TestVoidTransaction(t *testing.T) {
+
+	newTransaction := VoidTransaction{
+		OperationXID: "383838383",
+	}
+
+	response := newTransaction.Void()
+
+	if response.Approved() {
+		t.Log("Transaction Approved")
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.Total())
+	} else {
+
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
+		}
+
+		t.Log("Transaction Declined")
+		t.Fail()
+	}
+
+}
+
+
+func TestTranRefundTransaction(t *testing.T) {
+
+	newTransaction := TranRefundTransaction{
+		OperationXID: "383838383",
+	}
+
+	response := newTransaction.Refund()
+
+	if response.Approved() {
+		t.Log("Transaction Approved")
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.Total())
+	} else {
+
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
+		}
+
+		t.Log("Transaction Declined")
+		t.Fail()
+	}
+
+}

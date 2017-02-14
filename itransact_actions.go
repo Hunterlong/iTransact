@@ -29,6 +29,16 @@ func (transx TranRetryTransaction) Charge() iTransactResponse {
 	return newTransaction
 }
 
+func (transx VoidTransaction) Void() iTransactResponse {
+	newTransaction, _ := SendTransactionRequest(transx)
+	return newTransaction
+}
+
+func (transx TranRefundTransaction) Refund() iTransactResponse {
+	newTransaction, _ := SendTransactionRequest(transx)
+	return newTransaction
+}
+
 func (transx CreditTransaction) Credit() iTransactResponse {
 	newTransaction, _ := SendTransactionRequest(transx)
 	return newTransaction

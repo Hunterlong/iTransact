@@ -24,9 +24,9 @@ go get hunterlong/iTransact
 
 :white_check_mark: TranRetryTransaction
 
-:white_medium_square: VoidTransaction
+:white_check_mark: VoidTransaction
 
-:white_medium_square: TransactionStatus
+:white_check_mark: TranRefundTransaction
 
 #### Recurring Payments
 :white_medium_square: AuthTransaction
