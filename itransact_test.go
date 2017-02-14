@@ -187,3 +187,82 @@ func TestPostAuthTransaction(t *testing.T) {
 
 
 }
+
+
+func TestTranCredTransaction(t *testing.T) {
+
+	newTransaction := TranCredTransaction{
+		OperationXID: "383838383",
+		Total: "25.98",
+	}
+
+	response := newTransaction.Charge()
+
+	if response.Approved() {
+		t.Log("Transaction Approved")
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.Total())
+	} else {
+
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
+		}
+
+		t.Log("Transaction Declined")
+		t.Fail()
+	}
+
+}
+
+
+func TestTranForceTransaction(t *testing.T) {
+
+	newTransaction := TranForceTransaction{
+		OperationXID: "383838383",
+		ApprovalCode: "173833",
+	}
+
+	response := newTransaction.Charge()
+
+	if response.Approved() {
+		t.Log("Transaction Approved")
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.Total())
+	} else {
+
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
+		}
+
+		t.Log("Transaction Declined")
+		t.Fail()
+	}
+
+}
+
+
+func TestTranRetryTransaction(t *testing.T) {
+
+	newTransaction := TranRetryTransaction{
+		OperationXID: "383838383",
+		Total: "25.98",
+		Description: "Trying transaction again",
+	}
+
+	response := newTransaction.Charge()
+
+	if response.Approved() {
+		t.Log("Transaction Approved")
+		t.Log("Transaction ID: ", response.TransactionID())
+		t.Log("Transaction Amount: ", response.Total())
+	} else {
+
+		if response.Failed() {
+			t.Log(response.ErrorMessage())
+		}
+
+		t.Log("Transaction Declined")
+		t.Fail()
+	}
+
+}

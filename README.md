@@ -18,11 +18,11 @@ go get hunterlong/iTransact
 
 :white_check_mark: PostAuthTransaction
 
-:white_medium_square: TranCredTransaction
+:white_check_mark: TranCredTransaction
 
-:white_medium_square: TranForceTransaction
+:white_check_mark: TranForceTransaction
 
-:white_medium_square: TranRetryTransaction
+:white_check_mark: TranRetryTransaction
 
 :white_medium_square: VoidTransaction
 

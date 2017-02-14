@@ -14,6 +14,21 @@ func (transx AuthTransaction) Charge() iTransactResponse {
 }
 
 
+func (transx TranCredTransaction) Charge() iTransactResponse {
+	newTransaction, _ := SendTransactionRequest(transx)
+	return newTransaction
+}
+
+func (transx TranForceTransaction) Charge() iTransactResponse {
+	newTransaction, _ := SendTransactionRequest(transx)
+	return newTransaction
+}
+
+func (transx TranRetryTransaction) Charge() iTransactResponse {
+	newTransaction, _ := SendTransactionRequest(transx)
+	return newTransaction
+}
+
 func (transx CreditTransaction) Credit() iTransactResponse {
 	newTransaction, _ := SendTransactionRequest(transx)
 	return newTransaction

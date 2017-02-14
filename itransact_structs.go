@@ -86,6 +86,23 @@ type PostAuthTransaction struct {
 	Total string `xml:"Total,omitempty"`
 }
 
+type TranCredTransaction struct {
+	OperationXID string `xml:"OperationXID"`
+	Total string `xml:"Total,omitempty"`
+}
+
+type TranForceTransaction struct {
+	OperationXID string `xml:"OperationXID"`
+	ApprovalCode string `xml:"ApprovalCode"`
+	Total string `xml:"Total,omitempty"`
+}
+
+type TranRetryTransaction struct {
+	OperationXID string `xml:"OperationXID"`
+	Total string `xml:"Total,omitempty"`
+	Description string `xml:"Description,omitempty"`
+}
+
 type BatchClose struct {
 	TransactionControl TransactionControl `xml:"TransactionControl"`
 }
