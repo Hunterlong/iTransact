@@ -20,8 +20,8 @@ func main() {
 }
 ```
 
-## Transaction Requests
 
+## Transaction Actions
 #### :white_check_mark: AuthTransaction
 ```go
 newTransaction := iTransact.AuthTransaction{
@@ -49,13 +49,7 @@ newTransaction := iTransact.AuthTransaction{
 	}
 ```
 
-#### :white_check_mark: BatchClose
-```go
-batch := iTransact.RunBatchClose()
-fmt.Println("Closed", batch.Amount(), "Transactions")
-```
-
-:white_check_mark: CreditTransaction
+#### :white_check_mark: CreditTransaction
 ```go
 refundTransaction := iTransact.CreditTransaction{
 		Total:       "25.98",
@@ -81,7 +75,7 @@ refundTransaction := iTransact.CreditTransaction{
 	}
 ```
 
-:white_check_mark: PostAuthTransaction
+#### :white_check_mark: PostAuthTransaction
 ```go
 newTransaction := iTransact.PostAuthTransaction{
 		OperationXID: "383838383",
@@ -95,7 +89,7 @@ newTransaction := iTransact.PostAuthTransaction{
 	}
 ```
 
-:white_check_mark: TranCredTransaction
+#### :white_check_mark: TranCredTransaction
 ```go
 newTransaction := iTransact.TranCredTransaction{
 		OperationXID: "383838383",
@@ -109,7 +103,7 @@ newTransaction := iTransact.TranCredTransaction{
 	}
 ```
 
-:white_check_mark: TranForceTransaction
+#### :white_check_mark: TranForceTransaction
 ```go
 newTransaction := iTransact.TranForceTransaction{
 		OperationXID: "383838383",
@@ -123,7 +117,7 @@ newTransaction := iTransact.TranForceTransaction{
 	}
 ```
 
-:white_check_mark: TranRetryTransaction
+#### :white_check_mark: TranRetryTransaction
 ```go
 newTransaction := iTransact.TranRetryTransaction{
 		OperationXID: "383838383",
@@ -138,7 +132,7 @@ newTransaction := iTransact.TranRetryTransaction{
 	}
 ```
 
-:white_check_mark: VoidTransaction
+#### :white_check_mark: VoidTransaction
 ``` go
     voidTransaction := iTransact.VoidTransaction{
 		OperationXID: "383838383",
@@ -164,10 +158,30 @@ newTransaction := iTransact.TranRefundTransaction{
 	}
 ```
 
-#### Recurring Payments
-:white_medium_square: AuthTransaction
+#### :white_check_mark: BatchClose
+```go
+batch := iTransact.RunBatchClose()
+fmt.Println("Closed", batch.Amount(), "Transactions")
+```
 
-:white_medium_square: RecurUpdate
+# iTransactResponse Responses
+```go
+response.Approved()
+response.Failed()
+response.ErrorMessage()
+response.TransactionID()
+response.Total()
+```
 
-:white_medium_square: RecurDetails
+# BatchResponse Responses
+```go
+batch.Amount()
+```
+
+## Recurring Payments
+#### :white_medium_square: AuthTransaction
+
+#### :white_medium_square: RecurUpdate
+
+#### :white_medium_square: RecurDetails
 
