@@ -192,3 +192,8 @@ batch.Amount()
 
 #### :white_medium_square: RecurDetails
 
+# Todo
+:white_medium_square: Clean up responses
+
+:white_medium_square: Create more methods with good responses
+
