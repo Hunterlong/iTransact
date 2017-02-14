@@ -20,11 +20,15 @@ func main() {
 }
 ```
 
-#### Transaction Requests
+## Transaction Requests
 
-:white_check_mark: AuthTransaction
+#### :white_check_mark: AuthTransaction
 
-:white_check_mark: BatchClose
+#### :white_check_mark: BatchClose
+```go
+batch := iTransact.RunBatchClose()
+fmt.Println("Closed", batch.Amount(), "Transactions")
+```
 
 :white_check_mark: CreditTransaction
 
@@ -37,6 +41,17 @@ func main() {
 :white_check_mark: TranRetryTransaction
 
 :white_check_mark: VoidTransaction
+``` go
+    voidTransaction := iTransact.VoidTransaction{
+		OperationXID: "383838383",
+	}
+
+	response := voidTransaction.Void()
+
+	if response.Approved() {
+	    fmt.Println("Approved!")
+	}
+```
 
 :white_check_mark: TranRefundTransaction
 

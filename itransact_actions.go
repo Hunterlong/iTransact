@@ -1,6 +1,8 @@
 package iTransact
 
-import "strings"
+import (
+	"strings"
+)
 
 
 func (transx PostAuthTransaction) Charge() iTransactResponse {
@@ -80,4 +82,9 @@ func (resp iTransactResponse) Total() string {
 		return resp.GatewayInterface.TransactionResponse.TransactionResult.Total
 	}
 	return "error"
+}
+
+
+func (resp RunBatchCloseResponse) Amount() int {
+	return len(resp.GatewayInterface.BatchCloseResponse.BatchList.Batch)
 }

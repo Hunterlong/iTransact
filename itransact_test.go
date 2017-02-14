@@ -115,7 +115,7 @@ func TestItemsAuthTransaction(t *testing.T) {
 func TestCloseBatch(t *testing.T) {
 	batch := RunBatchClose()
 
-	t.Log("Closed", len(batch.GatewayInterface.BatchCloseResponse.BatchList.Batch), "Transactions")
+	t.Log("Closed", batch.Amount(), "Transactions")
 
 }
 
