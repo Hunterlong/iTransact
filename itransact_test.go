@@ -94,7 +94,6 @@ func TestItemsAuthTransaction(t *testing.T) {
 		//Description: "Order #2384 - Docker Jacket",
 	}
 
-
 	response := newTransaction.Charge()
 
 	if response.Approved() {
@@ -110,5 +109,12 @@ func TestItemsAuthTransaction(t *testing.T) {
 		t.Log("Transaction Declined")
 		t.Fail()
 	}
+
+}
+
+func TestCloseBatch(t *testing.T) {
+	batch := RunBatchClose()
+
+	t.Log("Closed", len(batch.GatewayInterface.BatchCloseResponse.BatchList.Batch), "Transactions")
 
 }

@@ -12,7 +12,7 @@ go get hunterlong/iTransact
 
 :white_check_mark: AuthTransaction
 
-:white_medium_square: BatchClose
+:white_check_mark: BatchClose
 
 :white_medium_square: CreditTransaction
 

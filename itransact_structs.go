@@ -49,6 +49,40 @@ type iTransactResponse struct {
 	} `xml:"GatewayInterface"`
 }
 
+type RunBatchCloseResponse struct {
+	GatewayInterface struct {
+		BatchCloseResponse struct {
+			Status        string `json:"Status"`
+			ErrorCategory string `json:"ErrorCategory"`
+			ErrorMessage  string `json:"ErrorMessage"`
+			TimeStamp     string `json:"TimeStamp"`
+			TestMode      string `json:"TestMode"`
+			BatchList     struct {
+				Batch []struct {
+					BatchNumber  string `json:"BatchNumber"`
+					CreditAmount string `json:"CreditAmount"`
+					CreditCount  string `json:"CreditCount"`
+					NetAmount    string `json:"NetAmount"`
+					NetCount     string `json:"NetCount"`
+					SaleAmount   string `json:"SaleAmount"`
+					SaleCount    string `json:"SaleCount"`
+					VoidAmount   string `json:"VoidAmount"`
+					VoidCount    string `json:"VoidCount"`
+				} `json:"Batch"`
+			} `json:"BatchList"`
+		} `json:"BatchCloseResponse"`
+	} `json:"GatewayInterface"`
+}
+
+type BatchClose struct {
+	TransactionControl TransactionControl `xml:"TransactionControl"`
+}
+
+type TransactionControl struct {
+	TestMode          string `xml:"TestMode"`
+	SendMerchantEmail string `xml:"SendMerchantEmail"`
+}
+
 type AuthCreds struct {
 	APICredentials APICredentials `xml:"APICredentials"`
 }

@@ -25,8 +25,6 @@ var EndPoint string = "https://secure.paymentclearing.com/cgi-bin/rc/xmltrans2.c
 // Test mode true or false
 var TestMode bool = true
 
-
-
 func SetAPIInfo(user string, pass string, gateway string, testMode string) {
 	ITransactUsername = user
 	ITransactAPIPass = pass
@@ -36,15 +34,39 @@ func SetAPIInfo(user string, pass string, gateway string, testMode string) {
 	}
 }
 
-
-
 func (transx AuthTransaction) Charge() iTransactResponse {
-	newTransaction, _ := SendRequest(transx)
+	newTransaction, _ := SendTransactionRequest(transx)
 	return newTransaction
 }
 
+func RunBatchClose() RunBatchCloseResponse {
+	transx := BatchClose{TransactionControl: TransactionControl{TestMode: "TRUE", SendMerchantEmail: "TRUE"}}
+	batch, _ := SendBatchCloseRequest(transx)
+	return batch
+}
 
-func SendRequest(input interface{}) (iTransactResponse, interface{}) {
+func SendTransactionRequest(input interface{}) (iTransactResponse, interface{}) {
+	output := SendToiTransact(input)
+	var dat iTransactResponse
+	err := xml.Unmarshal(output, &dat.GatewayInterface)
+	if err != nil {
+		panic(err)
+	}
+	return dat, err
+}
+
+func SendBatchCloseRequest(input interface{}) (RunBatchCloseResponse, interface{}) {
+	output := SendToiTransact(input)
+	var dat RunBatchCloseResponse
+	err := xml.Unmarshal(output, &dat.GatewayInterface)
+	if err != nil {
+		panic(err)
+	}
+	return dat, err
+}
+
+
+func SendToiTransact(input interface{}) []byte {
 	marshalAction, err := xml.Marshal(input)
 	if err != nil {
 		panic(err)
@@ -66,9 +88,9 @@ func SendRequest(input interface{}) (iTransactResponse, interface{}) {
 		panic(err)
 	}
 	compiledMarshal := "<?xml version=\"1.0\"?><GatewayInterface>" + string(marshalCreds) + message + "</GatewayInterface>"
+	//fmt.Println(compiledMarshal)
 	req, err := http.NewRequest("POST", EndPoint, bytes.NewBuffer([]byte(compiledMarshal)))
 	req.Header.Set("Content-Type", "text/xml")
-	errors := false
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -76,10 +98,5 @@ func SendRequest(input interface{}) (iTransactResponse, interface{}) {
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
-	var dat iTransactResponse
-	err = xml.Unmarshal(body, &dat.GatewayInterface)
-	if err != nil {
-		panic(err)
-	}
-	return dat, errors
+	return body
 }
