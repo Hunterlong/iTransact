@@ -60,7 +60,6 @@ func SendBatchCloseRequest(input interface{}) (RunBatchCloseResponse, interface{
 	return dat, err
 }
 
-
 func SendToiTransact(input interface{}) []byte {
 	marshalAction, err := xml.Marshal(input)
 	if err != nil {

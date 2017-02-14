@@ -119,14 +119,12 @@ func TestCloseBatch(t *testing.T) {
 
 }
 
-
-
 func TestCreditTransaction(t *testing.T) {
 
 	t.Log("Refunding a transaction\n")
 
 	refundTransaction := &CreditTransaction{
-		Total:       "25.98",
+		Total: "25.98",
 		CustomerData: CustomerData{
 			Email:           "info@socialeck.com",
 			CustId:          "83842",
@@ -159,9 +157,7 @@ func TestCreditTransaction(t *testing.T) {
 
 }
 
-
 func TestPostAuthTransaction(t *testing.T) {
-
 
 	newTransaction := PostAuthTransaction{
 		OperationXID: "383838383",
@@ -184,16 +180,13 @@ func TestPostAuthTransaction(t *testing.T) {
 		t.Fail()
 	}
 
-
-
 }
-
 
 func TestTranCredTransaction(t *testing.T) {
 
 	newTransaction := TranCredTransaction{
 		OperationXID: "383838383",
-		Total: "25.98",
+		Total:        "25.98",
 	}
 
 	response := newTransaction.Charge()
@@ -213,7 +206,6 @@ func TestTranCredTransaction(t *testing.T) {
 	}
 
 }
-
 
 func TestTranForceTransaction(t *testing.T) {
 
@@ -240,13 +232,12 @@ func TestTranForceTransaction(t *testing.T) {
 
 }
 
-
 func TestTranRetryTransaction(t *testing.T) {
 
 	newTransaction := TranRetryTransaction{
 		OperationXID: "383838383",
-		Total: "25.98",
-		Description: "Trying transaction again",
+		Total:        "25.98",
+		Description:  "Trying transaction again",
 	}
 
 	response := newTransaction.Charge()
@@ -266,7 +257,6 @@ func TestTranRetryTransaction(t *testing.T) {
 	}
 
 }
-
 
 func TestVoidTransaction(t *testing.T) {
 
@@ -291,7 +281,6 @@ func TestVoidTransaction(t *testing.T) {
 	}
 
 }
-
 
 func TestTranRefundTransaction(t *testing.T) {
 

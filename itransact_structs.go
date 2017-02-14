@@ -74,33 +74,32 @@ type RunBatchCloseResponse struct {
 	} `json:"GatewayInterface"`
 }
 
-
 type CreditTransaction struct {
-	Total string `xml:"Total"`
+	Total        string       `xml:"Total"`
 	CustomerData CustomerData `xml:"CustomerData"`
 	AccountInfo  CardAccount  `xml:"AccountInfo"`
 }
 
 type PostAuthTransaction struct {
 	OperationXID string `xml:"OperationXID"`
-	Total string `xml:"Total,omitempty"`
+	Total        string `xml:"Total,omitempty"`
 }
 
 type TranCredTransaction struct {
 	OperationXID string `xml:"OperationXID"`
-	Total string `xml:"Total,omitempty"`
+	Total        string `xml:"Total,omitempty"`
 }
 
 type TranForceTransaction struct {
 	OperationXID string `xml:"OperationXID"`
 	ApprovalCode string `xml:"ApprovalCode"`
-	Total string `xml:"Total,omitempty"`
+	Total        string `xml:"Total,omitempty"`
 }
 
 type TranRetryTransaction struct {
 	OperationXID string `xml:"OperationXID"`
-	Total string `xml:"Total,omitempty"`
-	Description string `xml:"Description,omitempty"`
+	Total        string `xml:"Total,omitempty"`
+	Description  string `xml:"Description,omitempty"`
 }
 
 type VoidTransaction struct {

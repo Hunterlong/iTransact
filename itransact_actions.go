@@ -4,7 +4,6 @@ import (
 	"strings"
 )
 
-
 func (transx PostAuthTransaction) Charge() iTransactResponse {
 	newTransaction, _ := SendTransactionRequest(transx)
 	return newTransaction
@@ -14,7 +13,6 @@ func (transx AuthTransaction) Charge() iTransactResponse {
 	newTransaction, _ := SendTransactionRequest(transx)
 	return newTransaction
 }
-
 
 func (transx TranCredTransaction) Charge() iTransactResponse {
 	newTransaction, _ := SendTransactionRequest(transx)
@@ -45,7 +43,6 @@ func (transx CreditTransaction) Credit() iTransactResponse {
 	newTransaction, _ := SendTransactionRequest(transx)
 	return newTransaction
 }
-
 
 func (resp iTransactResponse) Approved() bool {
 	if (strings.ToLower(resp.GatewayInterface.TransactionResponse.TransactionResult.Status)) == "ok" {
@@ -83,7 +80,6 @@ func (resp iTransactResponse) Total() string {
 	}
 	return "error"
 }
-
 
 func (resp RunBatchCloseResponse) Amount() int {
 	return len(resp.GatewayInterface.BatchCloseResponse.BatchList.Batch)
