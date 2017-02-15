@@ -2,8 +2,7 @@
 [![Build Status](https://travis-ci.org/hunterlong/iTransact.svg?branch=master)](https://travis-ci.org/hunterlong/iTransact) [![Go Report Card](https://goreportcard.com/badge/github.com/hunterlong/iTransact)](https://goreportcard.com/report/github.com/hunterlong/iTransact) [![GoDoc](https://godoc.org/github.com/hunterlong/iTransact?status.svg)](https://godoc.org/github.com/hunterlong/iTransact) [![Sourcegraph](https://sourcegraph.com/github.com/hunterlong/iTransact/-/badge.svg)](https://sourcegraph.com/github.com/hunterlong/iTransact/?badge)
 
 ### iTransact API Connections in Go Language
-A simple golang package to run credit card transactions via iTransact. This package is not complete as you can tell below.
-This package automatically creates the HMAC SHA1 payload required to use the API. This golang package can be used to originate Authorization, Sale, Refund, Credit,
+A simple golang package to run credit card transactions via iTransact. This package automatically creates the HMAC SHA1 payload required to use the API. This golang package can be used to originate Authorization, Sale, Refund, Credit,
 Force, Postauth, Retry and Void transactions.
 
 If you don't already have an account, sign up for a [iTransact Test Account](https://secure.itransact.com/merchant/test.html).
