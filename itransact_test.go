@@ -38,12 +38,14 @@ func TestAuthTransaction(t *testing.T) {
 			BillingAddress:  myAddress,
 			ShippingAddress: myAddress,
 		},
-		AccountInfo: CardAccount{CreditCard{
-			AccountNumber:   "5454545454545454",
-			ExpirationMonth: "05",
-			ExpirationYear:  "2022",
-			CVVNumber:       "394",
-		}},
+		AccountInfo: CardAccount{
+			CardAccount: CreditCard{
+				AccountNumber:   "5454545454545454",
+				ExpirationMonth: "05",
+				ExpirationYear:  "2022",
+				CVVNumber:       "394",
+			},
+		},
 	}
 
 	response := newTransaction.Charge()
@@ -83,12 +85,14 @@ func TestItemsAuthTransaction(t *testing.T) {
 			BillingAddress:  myAddress,
 			ShippingAddress: myAddress,
 		},
-		AccountInfo: CardAccount{CreditCard{
-			AccountNumber:   "5454545454545454",
-			ExpirationMonth: "09",
-			ExpirationYear:  "2021",
-			CVVNumber:       "314",
-		}},
+		AccountInfo: CardAccount{
+			CardAccount: CreditCard{
+				AccountNumber:   "5454545454545454",
+				ExpirationMonth: "09",
+				ExpirationYear:  "2021",
+				CVVNumber:       "314",
+			},
+		},
 		OrderItems: &Items{myOrder},
 		//Total:      "25.98",
 		//Description: "Order #2384 - Docker Jacket",
@@ -131,12 +135,14 @@ func TestCreditTransaction(t *testing.T) {
 			BillingAddress:  myAddress,
 			ShippingAddress: myAddress,
 		},
-		AccountInfo: CardAccount{CreditCard{
-			AccountNumber:   "5454545454545454",
-			ExpirationMonth: "05",
-			ExpirationYear:  "2022",
-			CVVNumber:       "394",
-		}},
+		AccountInfo: CardAccount{
+			CardAccount: CreditCard{
+				AccountNumber:   "5454545454545454",
+				ExpirationMonth: "05",
+				ExpirationYear:  "2022",
+				CVVNumber:       "394",
+			},
+		},
 	}
 
 	response := refundTransaction.Credit()
@@ -303,5 +309,25 @@ func TestTranRefundTransaction(t *testing.T) {
 		t.Log("Transaction Declined")
 		t.Fail()
 	}
+
+}
+
+func TestRecurringUpdateTransaction(t *testing.T) {
+
+	recurring := RecurUpdate{
+		OperationXID: "3535353",
+		Total: "9.99",
+		Description: "test recurring",
+	}
+
+	response := recurring.Charge()
+
+	t.Log("Recurring Transaction Status: ",response.Status)
+
+	//response.GatewayInterface.RecurUpdateResponse.Status
+
+}
+
+func TestRecurringDetails(t *testing.T) {
 
 }

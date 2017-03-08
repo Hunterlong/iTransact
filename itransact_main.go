@@ -8,6 +8,7 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"net/http"
+	"fmt"
 )
 
 // your iTransact Username
@@ -40,8 +41,20 @@ func RunBatchClose() RunBatchCloseResponse {
 	return batch
 }
 
+func SendRecurringRequest(input interface{}) (RecurUpdateReponse, interface{}) {
+	output := SendToiTransact(input)
+	fmt.Println(string(output))
+	var dat RecurUpdateReponse
+	err := xml.Unmarshal(output, &dat.GatewayInterface)
+	if err != nil {
+		panic(err)
+	}
+	return dat, err
+}
+
 func SendTransactionRequest(input interface{}) (iTransactResponse, interface{}) {
 	output := SendToiTransact(input)
+	fmt.Println(string(output))
 	var dat iTransactResponse
 	err := xml.Unmarshal(output, &dat.GatewayInterface)
 	if err != nil {
@@ -82,7 +95,7 @@ func SendToiTransact(input interface{}) []byte {
 		panic(err)
 	}
 	compiledMarshal := "<?xml version=\"1.0\"?><GatewayInterface>" + string(marshalCreds) + message + "</GatewayInterface>"
-	//fmt.Println(compiledMarshal)
+	fmt.Println(compiledMarshal)
 	req, err := http.NewRequest("POST", EndPoint, bytes.NewBuffer([]byte(compiledMarshal)))
 	req.Header.Set("Content-Type", "text/xml")
 	client := &http.Client{}

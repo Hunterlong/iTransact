@@ -52,26 +52,26 @@ type iTransactResponse struct {
 type RunBatchCloseResponse struct {
 	GatewayInterface struct {
 		BatchCloseResponse struct {
-			Status        string `json:"Status"`
-			ErrorCategory string `json:"ErrorCategory"`
-			ErrorMessage  string `json:"ErrorMessage"`
-			TimeStamp     string `json:"TimeStamp"`
-			TestMode      string `json:"TestMode"`
+			Status        string `xml:"Status"`
+			ErrorCategory string `xml:"ErrorCategory"`
+			ErrorMessage  string `xml:"ErrorMessage"`
+			TimeStamp     string `xml:"TimeStamp"`
+			TestMode      string `xml:"TestMode"`
 			BatchList     struct {
 				Batch []struct {
-					BatchNumber  string `json:"BatchNumber"`
-					CreditAmount string `json:"CreditAmount"`
-					CreditCount  string `json:"CreditCount"`
-					NetAmount    string `json:"NetAmount"`
-					NetCount     string `json:"NetCount"`
-					SaleAmount   string `json:"SaleAmount"`
-					SaleCount    string `json:"SaleCount"`
-					VoidAmount   string `json:"VoidAmount"`
-					VoidCount    string `json:"VoidCount"`
-				} `json:"Batch"`
-			} `json:"BatchList"`
-		} `json:"BatchCloseResponse"`
-	} `json:"GatewayInterface"`
+					BatchNumber  string `xml:"BatchNumber"`
+					CreditAmount string `xml:"CreditAmount"`
+					CreditCount  string `xml:"CreditCount"`
+					NetAmount    string `xml:"NetAmount"`
+					NetCount     string `xml:"NetCount"`
+					SaleAmount   string `xml:"SaleAmount"`
+					SaleCount    string `xml:"SaleCount"`
+					VoidAmount   string `xml:"VoidAmount"`
+					VoidCount    string `xml:"VoidCount"`
+				} `xml:"Batch"`
+			} `xml:"BatchList"`
+		} `xml:"BatchCloseResponse"`
+	} `xml:"GatewayInterface"`
 }
 
 type CreditTransaction struct {
@@ -138,10 +138,10 @@ type AuthTransaction struct {
 }
 
 type CustomerData struct {
-	Email           string  `xml:"Email"`
-	BillingAddress  Address `xml:"BillingAddress"`
-	ShippingAddress Address `xml:"ShippingAddress,omitempty"`
-	CustId          string  `xml:"CustId,omitempty"`
+	Email           string      `xml:"Email"`
+	BillingAddress  Address     `xml:"BillingAddress"`
+	ShippingAddress Address     `xml:"ShippingAddress,omitempty"`
+	CustId          string      `xml:"CustId,omitempty"`
 }
 
 type Items struct {
@@ -174,11 +174,72 @@ type CreditCard struct {
 	AccountNumber   string `xml:"AccountNumber"`
 	ExpirationMonth string `xml:"ExpirationMonth"`
 	ExpirationYear  string `xml:"ExpirationYear"`
-	CVVNumber       string `xml:"CVVNumber"`
+	CVVNumber       string `xml:"CVVNumber,omitempty"`
 }
 
 type TestModeBlock struct {
 	SendCustomerEmail string `xml:"SendCustomerEmail"`
 	SendMerchantEmail string `xml:"SendMerchantEmail"`
 	TestMode          string `xml:"TestMode"`
+}
+
+type RecureUpdateRequest struct {
+	GatewayInterface struct {
+		APICredentials APICredentials `xml:"APICredentials"`
+		RecurUpdate    RecurUpdate    `xml:"RecurUpdate"`
+	} `xml:"GatewayInterface"`
+}
+
+type RecurUpdate struct {
+	OperationXID string       `xml:"OperationXID"`
+	RemReps      *string       `xml:"RemReps,omitempty"`
+	Recipe       *string       `xml:"Recipe,omitempty"`
+	CustomerData *CustomerData `xml:"CustomerData,omitempty"`
+	OrderItems   *[]Item   `xml:"OrderItems,omitempty"`
+	Total        string       `xml:"Total,omitempty"`
+	Description string       `xml:"Description,omitempty"`
+}
+
+type OrderItems struct {
+	Item []Item `xml:"Item,omitempty"`
+}
+
+type RecurUpdateReponse struct {
+	GatewayInterface struct {
+		RecurUpdate SendRecurUpdate `xml:"RecurUpdateResponse"`
+	} `xml:"GatewayInterface"`
+}
+
+type SendRecurUpdate struct {
+	Status        string `xml:"Status"`
+	ErrorCategory string `xml:"ErrorCategory"`
+	ErrorMessage  string `xml:"ErrorMessage"`
+	TimeStamp     string `xml:"TimeStamp"`
+	TestMode      string `xml:"TestMode"`
+	RecurDetails  struct {
+			      RemReps    string `xml:"RemReps"`
+			      RecipeName string `xml:"RecipeName"`
+			      RecurTotal string `xml:"RecurTotal"`
+		      } `xml:"RecurDetails"`
+}
+
+type RecurDetails struct {
+	GatewayInterface struct {
+		RecurDetailsResponse struct {
+			Status        string `xml:"Status"`
+			ErrorCategory string `xml:"ErrorCategory"`
+			ErrorMessage  string `xml:"ErrorMessage"`
+			TimeStamp     string `xml:"TimeStamp"`
+			TestMode      string `xml:"TestMode"`
+			RecurDetails  struct {
+				CardExpired             string `xml:"CardExpired"`
+				CardExpiresWithinThirty string `xml:"CardExpiresWithinThirty"`
+				CardLastFour            string `xml:"CardLastFour"`
+				CardName                string `xml:"CardName"`
+				RemReps                 string `xml:"RemReps"`
+				RecipeName              string `xml:"RecipeName"`
+				RecurTotal              string `xml:"RecurTotal"`
+			} `xml:"RecurDetails"`
+		} `xml:"RecurDetailsResponse"`
+	} `xml:"GatewayInterface"`
 }

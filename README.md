@@ -187,7 +187,17 @@ batch.Amount()
 
 ## Recurring Payments
 #### :white_medium_square: AuthTransaction
+```go
+recurring := iTransact.RecurUpdate{
+		OperationXID: "3535353",
+		Total: "9.99",
+		Description: "test recurring",
+	}
 
+response := recurring.Charge()
+
+t.Log("Recurring Transaction Status: ",response.Status)
+```
 #### :white_medium_square: RecurUpdate
 
 #### :white_medium_square: RecurDetails

@@ -4,6 +4,11 @@ import (
 	"strings"
 )
 
+func (recurring RecurUpdate) Charge() SendRecurUpdate {
+	newTransaction, _ := SendRecurringRequest(recurring)
+	return newTransaction.GatewayInterface.RecurUpdate
+}
+
 func (transx PostAuthTransaction) Charge() iTransactResponse {
 	newTransaction, _ := SendTransactionRequest(transx)
 	return newTransaction
