@@ -138,10 +138,10 @@ type AuthTransaction struct {
 }
 
 type CustomerData struct {
-	Email           string      `xml:"Email"`
-	BillingAddress  Address     `xml:"BillingAddress"`
-	ShippingAddress Address     `xml:"ShippingAddress,omitempty"`
-	CustId          string      `xml:"CustId,omitempty"`
+	Email           string  `xml:"Email"`
+	BillingAddress  Address `xml:"BillingAddress"`
+	ShippingAddress Address `xml:"ShippingAddress,omitempty"`
+	CustId          string  `xml:"CustId,omitempty"`
 }
 
 type Items struct {
@@ -191,13 +191,13 @@ type RecureUpdateRequest struct {
 }
 
 type RecurUpdate struct {
-	OperationXID string       `xml:"OperationXID"`
+	OperationXID string        `xml:"OperationXID"`
 	RemReps      *string       `xml:"RemReps,omitempty"`
 	Recipe       *string       `xml:"Recipe,omitempty"`
 	CustomerData *CustomerData `xml:"CustomerData,omitempty"`
-	OrderItems   *[]Item   `xml:"OrderItems,omitempty"`
-	Total        string       `xml:"Total,omitempty"`
-	Description string       `xml:"Description,omitempty"`
+	OrderItems   *[]Item       `xml:"OrderItems,omitempty"`
+	Total        string        `xml:"Total,omitempty"`
+	Description  string        `xml:"Description,omitempty"`
 }
 
 type OrderItems struct {
@@ -217,10 +217,10 @@ type SendRecurUpdate struct {
 	TimeStamp     string `xml:"TimeStamp"`
 	TestMode      string `xml:"TestMode"`
 	RecurDetails  struct {
-			      RemReps    string `xml:"RemReps"`
-			      RecipeName string `xml:"RecipeName"`
-			      RecurTotal string `xml:"RecurTotal"`
-		      } `xml:"RecurDetails"`
+		RemReps    string `xml:"RemReps"`
+		RecipeName string `xml:"RecipeName"`
+		RecurTotal string `xml:"RecurTotal"`
+	} `xml:"RecurDetails"`
 }
 
 type RecurDetails struct {

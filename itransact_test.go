@@ -48,7 +48,10 @@ func TestAuthTransaction(t *testing.T) {
 		},
 	}
 
-	response := newTransaction.Charge()
+	response, err := newTransaction.Charge()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -98,7 +101,10 @@ func TestItemsAuthTransaction(t *testing.T) {
 		//Description: "Order #2384 - Docker Jacket",
 	}
 
-	response := newTransaction.Charge()
+	response, err := newTransaction.Charge()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -117,7 +123,10 @@ func TestItemsAuthTransaction(t *testing.T) {
 }
 
 func TestCloseBatch(t *testing.T) {
-	batch := RunBatchClose()
+	batch, err := RunBatchClose()
+	if err != nil {
+		t.Fail()
+	}
 
 	t.Log("Closed", batch.Amount(), "Transactions")
 
@@ -145,7 +154,10 @@ func TestCreditTransaction(t *testing.T) {
 		},
 	}
 
-	response := refundTransaction.Credit()
+	response, err := refundTransaction.Credit()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -170,7 +182,10 @@ func TestPostAuthTransaction(t *testing.T) {
 		//Total: "25.98",
 	}
 
-	response := newTransaction.Charge()
+	response, err := newTransaction.Charge()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -195,7 +210,10 @@ func TestTranCredTransaction(t *testing.T) {
 		Total:        "25.98",
 	}
 
-	response := newTransaction.Charge()
+	response, err := newTransaction.Charge()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -220,7 +238,10 @@ func TestTranForceTransaction(t *testing.T) {
 		ApprovalCode: "173833",
 	}
 
-	response := newTransaction.Charge()
+	response, err := newTransaction.Charge()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -246,7 +267,10 @@ func TestTranRetryTransaction(t *testing.T) {
 		Description:  "Trying transaction again",
 	}
 
-	response := newTransaction.Charge()
+	response, err := newTransaction.Charge()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -270,7 +294,10 @@ func TestVoidTransaction(t *testing.T) {
 		OperationXID: "383838383",
 	}
 
-	response := newTransaction.Void()
+	response, err := newTransaction.Void()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -294,7 +321,10 @@ func TestTranRefundTransaction(t *testing.T) {
 		OperationXID: "383838383",
 	}
 
-	response := newTransaction.Refund()
+	response, err := newTransaction.Refund()
+	if err != nil {
+		t.Fail()
+	}
 
 	if response.Approved() {
 		t.Log("Transaction Approved")
@@ -316,13 +346,16 @@ func TestRecurringUpdateTransaction(t *testing.T) {
 
 	recurring := RecurUpdate{
 		OperationXID: "3535353",
-		Total: "9.99",
-		Description: "test recurring",
+		Total:        "9.99",
+		Description:  "test recurring",
 	}
 
-	response := recurring.Charge()
+	response, err := recurring.Charge()
+	if err != nil {
+		t.Fail()
+	}
 
-	t.Log("Recurring Transaction Status: ",response.Status)
+	t.Log("Recurring Transaction Status: ", response.Status)
 
 	//response.GatewayInterface.RecurUpdateResponse.Status
 

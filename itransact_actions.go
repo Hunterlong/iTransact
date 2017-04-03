@@ -1,52 +1,89 @@
 package iTransact
 
 import (
+	"log"
 	"strings"
 )
 
-func (recurring RecurUpdate) Charge() SendRecurUpdate {
-	newTransaction, _ := SendRecurringRequest(recurring)
-	return newTransaction.GatewayInterface.RecurUpdate
+func (recurring RecurUpdate) Charge() (*SendRecurUpdate, error) {
+	newTransaction, err := SendRecurringRequest(recurring)
+	if err != nil {
+		log.Fatalln("Failed create recurring transaction\n", err)
+		return nil, err
+	}
+	return &newTransaction.GatewayInterface.RecurUpdate, err
 }
 
-func (transx PostAuthTransaction) Charge() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
+func (transx PostAuthTransaction) Charge() (*iTransactResponse, error) {
+	newTransaction, err := SendTransactionRequest(transx)
+	if err != nil {
+		log.Fatalln("Failed to POST auth charge to card\n", err)
+		return nil, err
+	}
+	return newTransaction, err
 }
 
-func (transx AuthTransaction) Charge() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
+func (transx AuthTransaction) Charge() (*iTransactResponse, error) {
+	newTransaction, err := SendTransactionRequest(transx)
+	if err != nil {
+		log.Fatalln("Failed to AUTH card\n", err)
+		return nil, err
+	}
+	return newTransaction, err
 }
 
-func (transx TranCredTransaction) Charge() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
+func (transx TranCredTransaction) Charge() (*iTransactResponse, error) {
+	newTransaction, err := SendTransactionRequest(transx)
+	if err != nil {
+		log.Fatalln("Failed to credit a card\n", err)
+		return nil, err
+	}
+	return newTransaction, err
 }
 
-func (transx TranForceTransaction) Charge() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
+func (transx TranForceTransaction) Charge() (*iTransactResponse, error) {
+	newTransaction, err := SendTransactionRequest(transx)
+	if err != nil {
+		log.Fatalln("Failed to force transaction\n", err)
+		return nil, err
+	}
+	return newTransaction, err
 }
 
-func (transx TranRetryTransaction) Charge() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
+func (transx TranRetryTransaction) Charge() (*iTransactResponse, error) {
+	newTransaction, err := SendTransactionRequest(transx)
+	if err != nil {
+		log.Fatalln("Failed to retry transaction\n", err)
+		return nil, err
+	}
+	return newTransaction, err
 }
 
-func (transx VoidTransaction) Void() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
+func (transx VoidTransaction) Void() (*iTransactResponse, error) {
+	newTransaction, err := SendTransactionRequest(transx)
+	if err != nil {
+		log.Fatalln("Failed to charge card\n", err)
+		return nil, err
+	}
+	return newTransaction, err
 }
 
-func (transx TranRefundTransaction) Refund() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
+func (transx TranRefundTransaction) Refund() (*iTransactResponse, error) {
+	newTransaction, err := SendTransactionRequest(transx)
+	if err != nil {
+		log.Fatalln("Failed to charge card\n", err)
+		return nil, err
+	}
+	return newTransaction, err
 }
 
-func (transx CreditTransaction) Credit() iTransactResponse {
-	newTransaction, _ := SendTransactionRequest(transx)
-	return newTransaction
+func (transx CreditTransaction) Credit() (*iTransactResponse, error) {
+	newTransaction, err := SendTransactionRequest(transx)
+	if err != nil {
+		log.Fatalln("Failed to charge card\n", err)
+		return nil, err
+	}
+	return newTransaction, err
 }
 
 func (resp iTransactResponse) Approved() bool {
